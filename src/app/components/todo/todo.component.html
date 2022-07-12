@@ -1,0 +1,16 @@
+<h1>TODO List</h1>
+<hr>
+
+<div>
+  <label for="">Tarea Pendiente :</label>
+  <input type="text" class="form-control" #inputPendiente>
+  <input type="button" class="btn btn-success mt-2" value="+ Pendiente" (click)="agregarPendiente(inputPendiente)">
+</div>
+
+<div *ngIf="mostrarInfo" style="margin-top: 30px;">
+  <h3>Tareas Pendientes ({{ tareasPendientes.length }})</h3>
+  <div *ngFor="let tarea of tareasPendientes; let pos = index;">
+    <input type="checkbox"> {{ tarea }} <span (click)="eliminar(pos)">X</span>
+  </div>
+
+</div>
