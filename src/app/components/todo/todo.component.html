@@ -16,12 +16,12 @@
 <div *ngIf="mostrarInfo" style="margin-top: 30px;">
   <h3>Tareas Pendientes ({{ tareasPendientes.length }})</h3>
   <div *ngFor="let tarea of tareasPendientes; let pos = index;">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-      <label class="form-check-label" [ngClass]="getColor(tarea.dias)"  for="flexCheckDefault">
-        {{ tarea.descripcion }} ({{ tarea.dias }} dias) | <span (click)="eliminar(pos)" style="color:red"> <i class="bi bi-trash"></i></span>
-      </label>
-    </div>
+    <app-todo-item
+      [tareaInput]="tarea"
+      [color]="getColor(tarea.dias)"
+      [position]="pos"
+      (onDelete)="eliminar($event)"
+      ></app-todo-item>
   </div>
 
 </div>
