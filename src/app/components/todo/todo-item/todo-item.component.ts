@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tarea } from '../models/tarea';
+import { TodoService } from '../services/todo.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -7,6 +8,8 @@ import { Tarea } from '../models/tarea';
   styleUrls: ['./todo-item.component.css']
 })
 export class TodoItemComponent implements OnInit {
+
+  constructor(private todoService: TodoService) {}
 
   @Input() position: number = 0;
   @Input() tareaInput: Tarea = {
@@ -16,12 +19,10 @@ export class TodoItemComponent implements OnInit {
 
   @Input() color:string = "";
 
-  @Output() onDelete: EventEmitter<number> = new EventEmitter();
-
   ngOnInit(): void {
   }
 
   eliminar(){
-    this.onDelete.emit(this.position);
+    this.todoService.eliminarTarea(this.position);
   }
 }

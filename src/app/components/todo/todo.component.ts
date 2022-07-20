@@ -1,3 +1,4 @@
+import { TodoService } from './services/todo.service';
 import { Tarea } from './models/tarea';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,12 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  tareasPendientes: Tarea[] = [];
+
+  get tareasPendientes(){
+    return this.todoService.myToDoItems;
+  };
+
   mostrarInfo: boolean = false;
   colorUrgente: string = 'text-danger';
   colorNoUrgente: string = 'text-info';
   colorMedio: string = 'text-warning';
-  constructor() {}
+
+  constructor(private todoService: TodoService) {
+    if(todoService.myToDoItems.length > 0)
+      this.mostrarInfo = true;
+  }
 
   ngOnInit(): void {}
 
@@ -25,14 +34,10 @@ export class TodoComponent implements OnInit {
       dias: parseInt(inputDias.value),
     };
 
-    this.tareasPendientes.push(tarea);
+    this.todoService.agregarTarea(tarea);
     this.mostrarInfo = true;
     inputPendiente.value = '';
     inputDias.value = '';
-  }
-
-  eliminar(index: number) {
-    this.tareasPendientes.splice(index, 1);
   }
 
   getColor(dias: number): string {
